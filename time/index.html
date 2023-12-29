@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>time</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .time-part {
+            color: #8d8d8d;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 379px;
+            font-weight: 400;
+        }
+
+        .date-part {
+            color: #8d8d8d;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 36px;
+            font-weight: 200;
+            text-align: right;
+        }
+
+        .dbg-red {
+            border-color: rgb(221, 65, 78);
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .dbg-green {
+            border-color: rgb(46, 163, 81);
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .dbg-blue {
+            border-color: rgb(43, 117, 177);
+            border-width: 1px;
+            border-style: solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="">
+        <div id="time" class="time-part"></div>
+        <div id="date" class="date-part"></div>
+    </div>
+    <script>
+        window.addEventListener("load", (event) => {
+            function getWeekNumber(d) {
+                // Copy date so don't modify original
+                d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+                // Set to nearest Thursday: current date + 4 - current day number
+                // Make Sunday's day number 7
+                d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+                // Get first day of year
+                var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+                // Calculate full weeks to nearest Thursday
+                var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+                return weekNo;
+            }
+
+            function formatDate(date) {
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+                let dayName = days[date.getDay()];
+                let day = date.getDate();
+                let monthName = months[date.getMonth()];
+                let year = date.getFullYear();
+                let week = getWeekNumber(date);
+
+                return `${dayName}, ${monthName} ${day}, ${year}, week ${week}`;
+            }
+
+            function formatTime(dateTime) {
+                let hours = dateTime.getHours();
+                let minutes = dateTime.getMinutes();
+                let ampm = hours >= 12 ? 'pm' : 'am';
+
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+
+                let strTime = hours + ':' + minutes + ' ' + ampm;
+                return strTime;
+            }
+
+            function updateDateTime() {
+                var d = new Date();
+                var timePart = formatTime(d);
+                var datePart = formatDate(d)
+                console.log("time", timePart);
+                console.log("date", datePart);
+
+                document.title = timePart
+                var e = document.getElementById("time");
+                if (e) {
+                    e.innerHTML = timePart;
+                }
+                var e = document.getElementById("date");
+                if (e) {
+                    e.innerHTML = datePart;
+                }
+
+            }
+            setInterval(updateDateTime, 20000);
+            updateDateTime();
+        });
+    </script>
+</body>
+
+</html>
