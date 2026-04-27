@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head> 
+    <head>
         <meta content="utf-8" http-equiv="encoding">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     </head>
 <body>
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
         body {
+            min-height: 100vh;
             background-color: #000000;
             background-image:url('NestEggIcon.png');
             background-repeat:no-repeat;
             background-attachment:fixed;
-            background-position:center; 
+            background-position:center;
+            display: flex;
+            flex-direction: column;
         }
 
         img {
             border: 0px;
         }
 
+        footer {
+            margin-top: auto;
+            padding: 16px 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        footer a {
+            color: #cccccc;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 
     <a href="http://www.facebook.com/pages/NestEggs-Inc/209654045826147"></a> <br/>
     <a href="https://twitter.com/NestEggsInc"></a> <br/>
+
+    <footer>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/delete-account/">Account Deletion</a>
+    </footer>
 </body>
 </html>
